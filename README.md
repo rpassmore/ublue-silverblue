@@ -1,3 +1,19 @@
+
+# Local build - Test
+
+Setup distrobox with the `buildblue` tool
+```shell
+cd ./cli
+distrobox assemble create
+```
+
+Build the OS oci image
+```shell
+bluebuild build ./recipes/recipe.yml
+```
+
+---
+
 # BlueBuild Template &nbsp; [![bluebuild build badge](https://github.com/rpassmore/ublue-silverblue/actions/workflows/build.yml/badge.svg)](https://github.com/rpassmore/ublue-silverblue/actions/workflows/build.yml)
 
 See the [BlueBuild docs](https://blue-build.org/how-to/setup/) for quick setup instructions for setting up your own repository based on this template.
