@@ -1,0 +1,113 @@
+modules:
+
+  - type: files
+    files:
+      - source: system
+        destination: /
+
+  - type: bling
+    install:
+      - rpmfusion
+    
+  # - from-file: install-akmods.yml
+
+  - type: gnome-extensions
+    install:
+      - Caffeine
+      - AppIndicator and KStatusNotifierItem Support
+      - Blur my Shell
+      - Tiling Shell
+      #- Dash to Dock
+      
+  - type: fonts
+    fonts:
+      nerd-fonts:
+        - Hack
+        - FiraCode
+        - JetBrainsMono
+        - Terminus
+        - Monoid
+
+  - type: brew
+    brew-analytics: false
+    auto-update: true
+    auto-upgrade: true
+    nofile-limits: true
+
+  - type: rpm-ostree
+    repos:
+      # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
+      - https://copr.fedorainfracloud.org/coprs/pgdev/ghostty/repo/fedora-%OS_VERSION%/pgdev-ghostty-fedora-%OS_VERSION%.repo
+      - https://download.docker.com/linux/fedora/docker-ce.repo
+    install:
+      # System wide gnome shell extensions
+      - gnome-shell-extension-dash-to-dock
+      - gnome-shell-extension-appindicator
+      # Apps    
+      - ghostty  
+      - micro
+      - starship
+      - zsh
+      - gnome-backgrounds-extras
+      - gnome-tweaks
+      # taken from bluefin
+      - bash-color-prompt
+      - bootc
+      - borgbackup
+      - hplip
+      - lm_sensors
+      - nautilus-open-any-terminal
+      - oddjob-mkhomedir
+      - openssh-askpass
+      - powertop
+
+      # Install Container Tools
+      #- docker-ce
+      #- docker-ce-cli
+      #- containerd.io
+      #- docker-compose-plugin
+
+      # Deps
+      
+    remove:
+      - firefox
+      - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+      - gnome-shell-extension-background-logo
+      - ptyxis
+      - nvtop
+      - wireguard-tools
+      - yubikey-manager
+
+  - type: default-flatpaks
+    notify: true # Send notification after install/uninstall is finished (true/false)
+    system:
+      repo-name: flathub
+      repo-title: "Flathub (system-wide)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
+      install:
+        - com.mattjakeman.ExtensionManager
+        - com.github.tchx84.Flatseal
+        - io.github.dvlv.boxbuddyrs/x86_64/stable
+        - io.github.flattool.Warehouse/x86_64/stable      
+        - org.gnome.font-viewer/x86_64/stable
+        - org.gnome.Logs/x86_64/stable 
+        - org.gnome.NautilusPreviewer/x86_64/stable
+      remove:
+        - org.gnome.eog
+    user:
+      repo-name: flathub
+      repo-title: "Flathub (user)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
+      install:
+        - org.gnome.FileRoller/x86_64/stable
+        - com.github.tchx84.Flatseal
+        - org.gnome.Loupe/x86_64/stable
+        - org.gnome.World.PikaBackup/x86_64/stable
+        - org.gnome.SimpleScan/x86_64/stable
+        
+  - type: systemd
+    system:
+      enabled:
+        #- docker.service
+        #- containerd.service
+        - podman.service
+
+  - type: signing # this sets up the proper policy & signing files for signed images to work fully
