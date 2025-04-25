@@ -42,4 +42,4 @@ jobs:
           maximize_build_space: true
 
           # enable rechunk to optimise image size and speed
-          rechunk: true
+          #rechunk: true
